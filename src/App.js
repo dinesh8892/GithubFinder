@@ -104,7 +104,7 @@ class App extends Component {
 							/>
 							<Route
 								exact
-								path='/user/:login'
+								path='/user/:loginId'
 								element={
 									<User
 										{...this.props}
