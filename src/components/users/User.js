@@ -148,6 +148,7 @@ class User extends React.Component {
 	}
 }
 
+// to use hooks in class component, wrap class component in function and pass the hooks return as prop
 export default (props) => (
 	<User
 		{...props}
