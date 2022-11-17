@@ -3,11 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import GithubState from './context/github/GithubState';
+import AlertState from './context/alert/AlertState';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<React.StrictMode>
-		<App />
+		<GithubState>
+			<AlertState>
+				<App />
+			</AlertState>
+		</GithubState>
 	</React.StrictMode>
 );
 

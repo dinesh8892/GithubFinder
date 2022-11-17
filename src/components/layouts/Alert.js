@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+import AlertContext from '../../context/alert/AlertContext';
 
 const Alert = (props) => {
+	const alertContext = useContext(AlertContext);
+
 	return (
-		props.alert !== null && (
-			<div className={`alert alert-${props.alert.type}`}>
+		alertContext.alert !== null && (
+			<div className={`alert alert-${alertContext.alert.type}`}>
 				<FontAwesomeIcon
 					icon={faCircleInfo}
 					style={{
@@ -15,7 +18,7 @@ const Alert = (props) => {
 						marginRight: 4,
 					}}
 				/>
-				{props.alert.msg}
+				{alertContext.alert.msg}
 			</div>
 		)
 	);

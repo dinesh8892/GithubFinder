@@ -1,18 +1,19 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Spinner from '../layouts/Spinner';
-import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import Repos from '../repos/Repos';
+import githubContext from '../../context/github/githubContext';
 
 const User = (props) => {
 	const { loginId } = useParams();
+	const GithubContext = useContext(githubContext);
 
 	useEffect(() => {
-		props.getUser(loginId);
-		props.getUserRepos(loginId);
+		GithubContext.getUser(loginId);
+		GithubContext.getUserRepos(loginId);
 	}, []);
 
 	const {
@@ -29,11 +30,9 @@ const User = (props) => {
 		public_gists,
 		hireable,
 		company,
-	} = props.user;
+	} = GithubContext.user;
 
-	const { loading } = props;
-
-	if (loading) return <Spinner />;
+	if (GithubContext.loading) return <Spinner />;
 
 	return (
 		<Fragment>
@@ -121,17 +120,9 @@ const User = (props) => {
 					Public Gists: {public_gists}
 				</div>
 			</div>
-			<Repos repos={props.repos} />
+			<Repos repos={GithubContext.repos} />
 		</Fragment>
 	);
-};
-
-User.propTypes = {
-	loading: PropTypes.bool.isRequired,
-	user: PropTypes.object.isRequired,
-	getUser: PropTypes.func.isRequired,
-	getUserRepos: PropTypes.func.isRequired,
-	repos: PropTypes.array.isRequired,
 };
 
 export default User;
